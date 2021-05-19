@@ -20,3 +20,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/upload_content', 'HomeController@upload_content')->name('upload_content');
+Route::get('/viewdoc/{id}', 'HomeController@viewdoc')->name('viewdoc');
+Route::post('/take_notes', 'HomeController@take_notes')->name('take_notes');
+
+
+
+

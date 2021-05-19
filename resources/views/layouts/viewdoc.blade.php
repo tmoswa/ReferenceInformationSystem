@@ -102,7 +102,7 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
           <!-- Brand Logo -->
           <a href="" class="brand-link">
-            <span class="brand-text font-weight-light">ZRP Reference Information </br>System</span>
+            <span class="brand-text font-weight-light">ZRP Reference Information </br> System</span>
           </a>
       
           <!-- Sidebar -->
@@ -217,10 +217,9 @@ li {
                       <ul class="nav nav-pills">
                         @guest
                         @else
-                        <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Home</a></li>
                         @if($email=="jerritachibhabha@gmail.com")<li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Upload Content</a></li>@endif
-                       
                         <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Search Content</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="#viewcontent" data-toggle="tab">View Content</a></li>
                         
                         @endguest
                       </ul>
@@ -342,7 +341,7 @@ li {
   <td>{{$cont->name}}</td>
   <td>{{$cont->reference}}</td>
   <td>{{$cont->description}}</td>
-  <td><a class="nav-link" href="{{route('viewdoc',$cont->id)}}" ><input type="button" class="btn btn-success" value="view"></a></td>
+  <td><a class="nav-link" href="{{route('viewdoc',$cont->id)}}"><input type="button" class="btn btn-success" value="view"></a></td>
   </tr>
   @endforeach
   {!! $content->render() !!}
@@ -369,68 +368,54 @@ function myFunction() {
   }
 }
 </script>
+                        </div>
+<div class="tab-pane" id="viewcontent">
+                        <table class="table" width="100%">
+                            <tr>
+                                <td width="70%">
+                      <embed src="{{URL::to('files/uploads/'.$docname)}}" type="application/pdf"   height="700px" width="100%">  
+                                </td>
+                                <td width="30%">
+                                <form class="form-horizontal" method="POST" action="{{route('take_notes')}}">
+                                      @csrf
+                                      <div class="form-group row">
+                                        <div class="col-sm-10">
+                                        <input type="hidden" name="doc_id" value="{{$id}}">
+                                        <input type="hidden" name="email" value="{{$email}}">
+                                          <textarea class="form-control" id="notes" name="notes" required placeholder="Notes"></textarea>
+                                      </div>
+                                      </div>
+                                    
+                                      <div class="form-group row">
+                                        <div class="offset-sm-2 col-sm-10">
+                                          <button type="submit" class="btn btn-danger">Submit</button>
+                                        </div>
+                                      </div>
+                                    </form>
+                                  </br>
+                                  <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Unified search.." title="Type in a name">
+                                     
+                                  <table id="myTable">
+                                      
+                                      <tr class="header">
+                                        <th style="width:25%;">Notes</th>
+                                      </tr>
+                                      @foreach($notes as $key => $nott)
+                                      <tr>
+                                        <td>{{$nott->notes}} </td>
+                                    </tr>
+                                      @endforeach
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                      </div>
 
 
 
 
-                          
-                          </div>
 
-                          <div class="tab-pane" id="viewcontent">
-                              <table class="table" width="100%">
-                                  <tr>
-                                      <td width="70%">
-                            <embed src="{{URL::to('dist/docs/Constitution-of-Zimbabwe-Amendment_No_20_-_14-05-2013.pdf')}}" type="application/pdf"   height="700px" width="100%">  
-                                      </td>
-                                      <td width="30%">
-                                        <form class="form-horizontal">
-                                            <div class="form-group row">
-                                              <div class="col-sm-10">
-                                                <textarea class="form-control" id="inputExperience" required placeholder="Notes"></textarea>
-                                            </div>
-                                            </div>
-                                          
-                                            <div class="form-group row">
-                                              <div class="offset-sm-2 col-sm-10">
-                                                <button type="submit" class="btn btn-danger">Submit</button>
-                                              </div>
-                                            </div>
-                                          </form>
-                                        </br>
-
-                                        <table id="myTable">
-                                            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Unified search.." title="Type in a name">
-
-                                            <tr class="header">
-                                              <th style="width:25%;">Notes</th>
-                                            </tr>
-                                            <tr>
-                                              <td>These are the Notes i am taking </td>
-                                          </tr>
-                                            
-                                          </table>
-                                          <script>
-                                            function myFunction() {
-                                              var input, filter, table, tr, td, i, txtValue;
-                                              input = document.getElementById("myInput");
-                                              filter = input.value.toUpperCase();
-                                              table = document.getElementById("myTable");
-                                              tr = table.getElementsByTagName("tr");
-                                              for (i = 0; i < tr.length; i++) {
-                                                td = tr[i].getElementsByTagName("td")[0];
-                                                if (td) {
-                                                  txtValue = td.textContent || td.innerText;
-                                                  if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                                                    tr[i].style.display = "";
-                                                  } else {
-                                                    tr[i].style.display = "none";
-                                                  }
-                                                }       
-                                              }
-                                            }
-                                            </script>
-                                      </td>
-                            </div>
+                   
 
 
                         <!-- /.tab-pane -->
